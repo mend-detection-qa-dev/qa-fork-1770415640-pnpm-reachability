@@ -1,139 +1,150 @@
 {
-    "description": "Autotest configuration file for dependency tree detection validation",
-    "version": 1.5,
-    "base_config": {
-        "validate_scan_output": true,
-        "_comment_validate_scan_output": "Whether to validate the scan output/exit code. Options: true | false. Default: true",
-        "scan_output": {
-            "_security_scan_report_conclusion": "failure",
-            "_comment_security_scan_report_conclusion": "Optional. Expected scan report conclusion. Options: 'success' | 'failure'. This validates the security scan result status. If not provided, this check will not be performed.",
-            "total_libs_scanned": {
-                "eq": 42
-            },
-            "_comment_total_libs_scanned": "Expected number of libraries scanned with comparison operator. Validates that the scan processed libraries."
-        },
-        "validate_dependency_tree": true,
-        "_comment_validate_dependency_tree": "Whether to validate the dependency tree. Options: true | false. Default: true",
-        "dependency_tree": {
-            "check_dependency_tree_detection_status": true,
-            "_comment_check_dependency_tree_detection_status": "Whether to check if dependency tree was successfully detected. Options: true | false. Default: true",
-            "expected_total_dependencies_number": {
-                "eq": 57
-            },
-            "expected_direct_dependencies_number": {
-                "eq": 2
-            },
-            "expected_transitive_dependencies_number": {
-                "eq": 55
-            },
-            "_comment_expected_dependencies_number": "Optional. Expected number of dependencies with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). If not provided, this check will not be performed.",
-            "direct_dependencies_names_list": {
-                "eq": [
-                    "@angular/core-7.2.0.tgz",
-                    "socket.io-2.4.1.tgz"
-                ]
-            },
-            "transitive_dependencies_names_list": {
-                "eq": [
-                    "ms-2.0.0.tgz",
-                    "zone.js-0.8.29.tgz",
-                    "indexof-0.0.1.tgz",
-                    "component-emitter-1.2.1.tgz",
-                    "has-cors-1.1.0.tgz",
-                    "base64id-2.0.0.tgz",
-                    "engine.io-client-3.5.4.tgz",
-                    "has-binary2-1.0.3.tgz",
-                    "accepts-1.3.8.tgz",
-                    "parseqs-0.0.6.tgz",
-                    "backo2-1.0.2.tgz",
-                    "component-emitter-1.3.1.tgz",
-                    "component-inherit-0.0.3.tgz",
-                    "debug-4.1.1.tgz",
-                    "after-0.8.2.tgz",
-                    "arraybuffer.slice-0.0.7.tgz",
-                    "ms-2.1.3.tgz",
-                    "cookie-0.4.2.tgz",
-                    "parseuri-0.0.6.tgz",
-                    "base64-arraybuffer-0.1.4.tgz",
-                    "negotiator-0.6.3.tgz",
-                    "engine.io-parser-2.2.1.tgz",
-                    "blob-0.0.5.tgz",
-                    "debug-3.1.0.tgz",
-                    "mime-db-1.52.0.tgz",
-                    "to-array-0.1.4.tgz",
-                    "socket.io-adapter-1.1.2.tgz",
-                    "ws-7.4.6.tgz",
-                    "tslib-1.14.1.tgz",
-                    "xmlhttprequest-ssl-1.6.3.tgz",
-                    "component-bind-1.0.0.tgz",
-                    "socket.io-client-2.4.0.tgz",
-                    "socket.io-parser-3.3.4.tgz",
-                    "isarray-2.0.1.tgz",
-                    "engine.io-3.5.0.tgz",
-                    "socket.io-parser-3.4.3.tgz",
-                    "ws-7.5.10.tgz",
-                    "yeast-0.1.2.tgz",
-                    "mime-types-2.1.35.tgz",
-                    "rxjs-6.6.7.tgz"
-                ]
-            },
-            "_comment_dependencies_names_list": "Optional. Check specific libraries in direct dependencies. Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
-            "validate_agent_versions": true,
-            "expected_agent_version": "",
-            "expected_plugin_version": "",
-            "_comment_agent_versions": "Optional. Expected agent and plugin versions. If not provided, this check will not be performed."
-        },
-        "validate_vulnerabilities_table": true,
-        "_comment_validate_vulnerabilities_table": "Whether to validate the vulnerabilities table. Options: true | false. Default: true",
-        "vulnerabilities_table": {
-            "check_vulnerabilities_table_structure": true,
-            "expected_total_vulnerabilities_number": {
-                "gte": 0
-            },
-            "vulnerabilities_ids_list": {
-                "contains": []
-            },
-            "_comment_ids_names_list": "Optional. Check specific libs ids (WS-2018-0111, CVE-2021-44906). Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
-            "vulnerabilities_names_list": {
-                "contains": []
-            },
-            "_comment_vulnerabilities_names_list": "Optional. Check specific libs names (minimist-0.0.8.tgz). Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed."
-        },
-        "validate_scanner_logs": false,
-        "_comment_validate_scanner_logs": "Whether to validate scanner logs. Options: true | false. Default: false",
-        "logs": {
-            "check_scanner_logs": false,
-            "_comment_check_scanner_logs": "Whether to check scanner logs and attach them to Report Portal. Options: true | false. Default: true",
-            "expected_log_lines": [],
-            "_comment_expected_log_lines": "Optional. List of log lines to validate. Each entry should have an 'operator' (eq or regex) and 'value' (string or regex pattern). Example: [{'operator': 'eq', 'value': 'Python version: 3.11'}, {'operator': 'regex', 'value': 'Python version: \\d+\\.\\d+'}]. If not provided, only log attachment will be performed."
-        },
-        "validate_reachability": true,
-            "_comment_validate_reachability": "Whether to validate reachability analysis. Options: true | false. Default: false. When enabled, .whitesource file will be automatically updated to set enableReachability: true if needed.",
-
-        "reachability": {
+  "description": "Autotest configuration file for dependency tree detection validation",
+  "version": 1.5,
+  "base_config": {
+    "validate_scan_output": true,
+    "_comment_validate_scan_output": "Whether to validate the scan output/exit code. Options: true | false. Default: true",
+    "scan_output": {
+      "_security_scan_report_conclusion": "failure",
+      "_comment_security_scan_report_conclusion": "Optional. Expected scan report conclusion. Options: \u0027success\u0027 | \u0027failure\u0027. This validates the security scan result status. If not provided, this check will not be performed.",
+      "total_libs_scanned": {
+        "eq": 42
+      },
+      "_comment_total_libs_scanned": "Expected number of libraries scanned with comparison operator. Validates that the scan processed libraries."
+    },
+    "validate_dependency_tree": true,
+    "_comment_validate_dependency_tree": "Whether to validate the dependency tree. Options: true | false. Default: true",
+    "dependency_tree": {
+      "check_dependency_tree_detection_status": true,
+      "_comment_check_dependency_tree_detection_status": "Whether to check if dependency tree was successfully detected. Options: true | false. Default: true",
+      "expected_total_dependencies_number": {
+        "eq": 57
+      },
+      "expected_direct_dependencies_number": {
+        "eq": 2
+      },
+      "expected_transitive_dependencies_number": {
+        "eq": 55
+      },
+      "_comment_expected_dependencies_number": "Optional. Expected number of dependencies with comparison operator. Operators: gt (\u003e), gte (\u003e\u003d), lt (\u003c), lte (\u003c\u003d), eq (\u003d\u003d). If not provided, this check will not be performed.",
+      "direct_dependencies_names_list": {
+        "eq": [
+          "@angular/core-7.2.0.tgz",
+          "socket.io-2.4.1.tgz"
+        ]
+      },
+      "transitive_dependencies_names_list": {
+        "eq": [
+          "ms-2.0.0.tgz",
+          "zone.js-0.8.29.tgz",
+          "indexof-0.0.1.tgz",
+          "component-emitter-1.2.1.tgz",
+          "has-cors-1.1.0.tgz",
+          "base64id-2.0.0.tgz",
+          "engine.io-client-3.5.4.tgz",
+          "has-binary2-1.0.3.tgz",
+          "accepts-1.3.8.tgz",
+          "parseqs-0.0.6.tgz",
+          "backo2-1.0.2.tgz",
+          "component-emitter-1.3.1.tgz",
+          "component-inherit-0.0.3.tgz",
+          "debug-4.1.1.tgz",
+          "after-0.8.2.tgz",
+          "arraybuffer.slice-0.0.7.tgz",
+          "ms-2.1.3.tgz",
+          "cookie-0.4.2.tgz",
+          "parseuri-0.0.6.tgz",
+          "base64-arraybuffer-0.1.4.tgz",
+          "negotiator-0.6.3.tgz",
+          "engine.io-parser-2.2.1.tgz",
+          "blob-0.0.5.tgz",
+          "debug-3.1.0.tgz",
+          "mime-db-1.52.0.tgz",
+          "to-array-0.1.4.tgz",
+          "socket.io-adapter-1.1.2.tgz",
+          "ws-7.4.6.tgz",
+          "tslib-1.14.1.tgz",
+          "xmlhttprequest-ssl-1.6.3.tgz",
+          "component-bind-1.0.0.tgz",
+          "socket.io-client-2.4.0.tgz",
+          "socket.io-parser-3.3.4.tgz",
+          "isarray-2.0.1.tgz",
+          "engine.io-3.5.0.tgz",
+          "socket.io-parser-3.4.3.tgz",
+          "ws-7.5.10.tgz",
+          "yeast-0.1.2.tgz",
+          "mime-types-2.1.35.tgz",
+          "rxjs-6.6.7.tgz"
+        ]
+      },
+      "_comment_dependencies_names_list": "Optional. Check specific libraries in direct dependencies. Operators: eq (\u003d\u003d), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
+      "validate_agent_versions": true,
+      "expected_agent_version": "",
+      "expected_plugin_version": "",
+      "_comment_agent_versions": "Optional. Expected agent and plugin versions. If not provided, this check will not be performed."
+    },
+    "validate_vulnerabilities_table": true,
+    "_comment_validate_vulnerabilities_table": "Whether to validate the vulnerabilities table. Options: true | false. Default: true",
+    "vulnerabilities_table": {
+      "check_vulnerabilities_table_structure": true,
+      "expected_total_vulnerabilities_number": {
+        "gte": 0
+      },
+      "vulnerabilities_ids_list": {
+        "contains": []
+      },
+      "_comment_ids_names_list": "Optional. Check specific libs ids (WS-2018-0111, CVE-2021-44906). Operators: eq (\u003d\u003d), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
+      "vulnerabilities_names_list": {
+        "contains": []
+      },
+      "_comment_vulnerabilities_names_list": "Optional. Check specific libs names (minimist-0.0.8.tgz). Operators: eq (\u003d\u003d), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed."
+    },
+    "validate_scanner_logs": false,
+    "_comment_validate_scanner_logs": "Whether to validate scanner logs. Options: true | false. Default: false",
+    "logs": {
+      "check_scanner_logs": false,
+      "_comment_check_scanner_logs": "Whether to check scanner logs and attach them to Report Portal. Options: true | false. Default: true",
+      "expected_log_lines": [],
+      "_comment_expected_log_lines": "Optional. List of log lines to validate. Each entry should have an \u0027operator\u0027 (eq or regex) and \u0027value\u0027 (string or regex pattern). Example: [{\u0027operator\u0027: \u0027eq\u0027, \u0027value\u0027: \u0027Python version: 3.11\u0027}, {\u0027operator\u0027: \u0027regex\u0027, \u0027value\u0027: \u0027Python version: \\d+\\.\\d+\u0027}]. If not provided, only log attachment will be performed."
+    },
+    "validate_reachability": true,
+    "_comment_validate_reachability": "Whether to validate reachability analysis. Options: true | false. Default: false. When enabled, .whitesource file will be automatically updated to set enableReachability: true if needed.",
+    "reachability": {
       "check_reachability_status": true,
       "_comment_check_reachability_status": "Whether to check if reachability analysis was successfully performed. Options: true | false. Default: true",
-
       "validate_issues": true,
       "_comment_validate_issues": "Whether to validate GitHub issues created for reachable vulnerabilities. Options: true | false. Default: false. When enabled, issues will be automatically enabled on the repository if not already enabled. Validates: issue labels, body format (library name, CVE, paths, commit SHA), title format, state, and author.",
-
       "expected_reachable_libraries": {
         "contains": [
-          {"library_name": "engine.io-3.5.0.tgz", "vulnerabilities":  ["CVE-2020-36048", "CVE-2022-41940"]}
-        ]},
-      "_comment_expected_reachable_libraries": "Optional. List of libraries with their reachable vulnerabilities. Each entry should have 'library_name' and 'vulnerabilities' (list of CVE IDs). Operators: eq (==) - exact match, contains (all expected libraries found in actual). Example: {'contains': [{'library_name': 'loader-utils-1.4.0.tgz', 'vulnerabilities': ['CVE-2022-37601']}]}. If not provided, this check will not be performed.",
-
+          {
+            "library_name": "engine.io-3.5.0.tgz",
+            "vulnerabilities": [
+              "CVE-2020-36048",
+              "CVE-2022-41940"
+            ]
+          }
+        ]
+      },
+      "_comment_expected_reachable_libraries": "Optional. List of libraries with their reachable vulnerabilities. Each entry should have \u0027library_name\u0027 and \u0027vulnerabilities\u0027 (list of CVE IDs). Operators: eq (\u003d\u003d) - exact match, contains (all expected libraries found in actual). Example: {\u0027contains\u0027: [{\u0027library_name\u0027: \u0027loader-utils-1.4.0.tgz\u0027, \u0027vulnerabilities\u0027: [\u0027CVE-2022-37601\u0027]}]}. If not provided, this check will not be performed.",
       "expected_unreachable_libraries": {
         "contains": [
-          {"library_name": "core-7.2.0.tgz", "vulnerabilities": ["CVE-2021-4231"]}
-        ]},
-      "_comment_expected_unreachable_libraries": "Optional. List of libraries with their unreachable vulnerabilities. Each entry should have 'library_name' and 'vulnerabilities' (list of CVE IDs). Operators: eq (==) - exact match, contains (all expected libraries found in actual). Example: {'contains': [{'library_name': 'loader-utils-2.0.0.tgz', 'vulnerabilities': ['CVE-2022-37603']}]}. If not provided, this check will not be performed.",
-
-      "expected_total_reachable_count": {"gte": 1},
-      "_comment_expected_total_reachable_count": "Optional. Expected number of reachable CVEs with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). Example: {'gte': 1} or {'eq': 5}. If not provided, this check will not be performed.",
-
-      "expected_total_unreachable_count": {"gte": 0},
-      "_comment_expected_total_unreachable_count": "Optional. Expected number of unreachable CVEs with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). Example: {'gte': 0}. If not provided, this check will not be performed.",
+          {
+            "library_name": "core-7.2.0.tgz",
+            "vulnerabilities": [
+              "CVE-2021-4231"
+            ]
+          }
+        ]
+      },
+      "_comment_expected_unreachable_libraries": "Optional. List of libraries with their unreachable vulnerabilities. Each entry should have \u0027library_name\u0027 and \u0027vulnerabilities\u0027 (list of CVE IDs). Operators: eq (\u003d\u003d) - exact match, contains (all expected libraries found in actual). Example: {\u0027contains\u0027: [{\u0027library_name\u0027: \u0027loader-utils-2.0.0.tgz\u0027, \u0027vulnerabilities\u0027: [\u0027CVE-2022-37603\u0027]}]}. If not provided, this check will not be performed.",
+      "expected_total_reachable_count": {
+        "gte": 1
+      },
+      "_comment_expected_total_reachable_count": "Optional. Expected number of reachable CVEs with comparison operator. Operators: gt (\u003e), gte (\u003e\u003d), lt (\u003c), lte (\u003c\u003d), eq (\u003d\u003d). Example: {\u0027gte\u0027: 1} or {\u0027eq\u0027: 5}. If not provided, this check will not be performed.",
+      "expected_total_unreachable_count": {
+        "gte": 0
+      },
+      "_comment_expected_total_unreachable_count": "Optional. Expected number of unreachable CVEs with comparison operator. Operators: gt (\u003e), gte (\u003e\u003d), lt (\u003c), lte (\u003c\u003d), eq (\u003d\u003d). Example: {\u0027gte\u0027: 0}. If not provided, this check will not be performed."
     }
-    }
+  }
 }
