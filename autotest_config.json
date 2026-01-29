@@ -108,30 +108,32 @@
             "_comment_expected_log_lines": "Optional. List of log lines to validate. Each entry should have an 'operator' (eq or regex) and 'value' (string or regex pattern). Example: [{'operator': 'eq', 'value': 'Python version: 3.11'}, {'operator': 'regex', 'value': 'Python version: \\d+\\.\\d+'}]. If not provided, only log attachment will be performed."
         },
         "validate_reachability": true,
+            "_comment_validate_reachability": "Whether to validate reachability analysis. Options: true | false. Default: false. When enabled, .whitesource file will be automatically updated to set enableReachability: true if needed.",
+
         "reachability": {
       "check_reachability_status": true,
-      "_comment_check_reachability_status": "Verify that reachability analysis was performed",
+      "_comment_check_reachability_status": "Whether to check if reachability analysis was successfully performed. Options: true | false. Default: true",
 
       "validate_issues": true,
-      "_comment_validate_issues": "Enable GitHub issues validation for reachable vulnerabilities (will auto-enable issues on repo)",
+      "_comment_validate_issues": "Whether to validate GitHub issues created for reachable vulnerabilities. Options: true | false. Default: false. When enabled, issues will be automatically enabled on the repository if not already enabled. Validates: issue labels, body format (library name, CVE, paths, commit SHA), title format, state, and author.",
 
       "expected_reachable_libraries": {
         "contains": [
           {"library_name": "engine.io-3.5.0.tgz", "vulnerabilities":  ["CVE-2020-36048", "CVE-2022-41940"]}
         ]},
-      "_comment_expected_reachable_libraries": "Expected REACHABLE libraries",
+      "_comment_expected_reachable_libraries": "Optional. List of libraries with their reachable vulnerabilities. Each entry should have 'library_name' and 'vulnerabilities' (list of CVE IDs). Operators: eq (==) - exact match, contains (all expected libraries found in actual). Example: {'contains': [{'library_name': 'loader-utils-1.4.0.tgz', 'vulnerabilities': ['CVE-2022-37601']}]}. If not provided, this check will not be performed.",
 
       "expected_unreachable_libraries": {
         "contains": [
           {"library_name": "core-7.2.0.tgz", "vulnerabilities": ["CVE-2021-4231"]}
         ]},
-      "_comment_expected_unreachable_libraries": ",,,",
+      "_comment_expected_unreachable_libraries": "Optional. List of libraries with their unreachable vulnerabilities. Each entry should have 'library_name' and 'vulnerabilities' (list of CVE IDs). Operators: eq (==) - exact match, contains (all expected libraries found in actual). Example: {'contains': [{'library_name': 'loader-utils-2.0.0.tgz', 'vulnerabilities': ['CVE-2022-37603']}]}. If not provided, this check will not be performed.",
 
       "expected_total_reachable_count": {"gte": 1},
-      "_comment_expected_total_reachable_count": "Minimum number of reachable CVEs expected",
+      "_comment_expected_total_reachable_count": "Optional. Expected number of reachable CVEs with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). Example: {'gte': 1} or {'eq': 5}. If not provided, this check will not be performed.",
 
       "expected_total_unreachable_count": {"gte": 0},
-      "_comment_expected_total_unreachable_count": "Expected number of unreachable CVEs"
+      "_comment_expected_total_unreachable_count": "Optional. Expected number of unreachable CVEs with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). Example: {'gte': 0}. If not provided, this check will not be performed.",
     }
     }
 }
